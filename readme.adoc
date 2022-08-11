@@ -1,0 +1,182 @@
+= Kahoot
+
+I first want to know react, so I create the tic-tac-toe exercise
+I didn't like this tutorial very much.
+Constantly overwriting code makes it very complex for me.
+Then I tried to make a quiz, based on a tutorial, but a lot of the components were made from before and not showed, so I had to start all over again...
+
+
+== Theory
+=== components
+
+everything you build in React is a component.
+By breaking down the UI into functional components, not oly does this bring logic and sense into the design process,
+but it also makes manageable.
+Components are reusable features that you can compose together to create a user interface (UI).
+By modularizing features, your UI scales efficiently as your app grows.
+
+==== Hierarchy of Components:
+                   parent Component
+                        data
+ child component    child component     child component
+
+A parent component will pass down data to nested child components using props.
+
+Components are reusable features that you can compose together to create a user interface (UI).
+By modularizing features, your UI scales efficiently as your app grows.
+
+
+====  types of components
+
+1. *Class Components*
+
+Creating a class component involves sub-classing the Component class from the React library.
+
+* the render Method describes what the component should look like when it renders on the page.
+React takes the description and displays the result.
+In particular, render returns a React element, which is a lightweight description of what to render.
+
+* A component takes in parameters, called props (short for “properties”),
+and returns a hierarchy of views to display via the render method.
+
+* we use  JSX inhere:
+
+https://reactjs.org/docs/introducing-jsx.html
+
+JSX, asyntax extension to JavaScript, is recommended in React to describe what the UI should look like.
+JSX may remind you of a template language, but it comes with the full power of JavaScript.
+
+JSX produces React “elements”
+
+Event-listeners in JSX: dragend, unload, pagehide, button, toggle, onClick, scroll, loadstart, dblclick, keydown, afterprint, ...)
+
+NOTE: Since JSX is closer to JavaScript than to HTML, React DOM uses camelCase property naming convention
+instead of HTML attribute names.
+For example, class becomes className in JSX, and tabindex becomes tabIndex.
+
+
+* Allow  you to declare local state properties.
+** To “remember” things, components use state. React components can have state by setting this.state in their constructors.
+this.state should be considered as private to a React component that it’s defined in.)
+These properties declaratively describe what renders in the component's render method.
+State should never be mutated directly and must always be updated using the setState function.
+* Is the most fundamental form of component that you can build using React.
+* Allows you to create and manage local state variables, such as the "inOn"
+variable.
+
+
+note: In JavaScript classes, you need to always call super when defining the constructor of a subclass.
+All React component classes that have a constructor should start with a super(props) call.
+
+ class Square extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+              value: null,
+            };
+        }
+ }
+
+[start=2]
+2. *Function Components*
+
+* Functions Components are simple functions that return a JSX template.
+* are simple and lightweight components for when you need to render visual elements
+that depend mainly on props for their data
+* by default, they do not implement local state and other features that you typically get with class Components.
+* do not implement local state management => Hooks API is introduced.
+This allows you to implement local state and this somewhere blurs the line between Class and Function components.
+
+In React, function components are a simpler way to write components that only contain a render method
+and don’t have their own state. Instead of defining a class which extends React.Component, we can write a function
+that takes props as input and returns what should be rendered.
+Function components are less tedious to write than classes, and many components can be expressed this way.
+
+    function Square(props) {
+    return (
+     <button className="square" onClick={props.onClick}>
+        {props.value}
+     </button>
+    );
+    }
+
+
+
+
+=== new project
+* To start a new React project, the easiest way is to type 'npx create-react-app nameOfProject' in  the terminal,
+in the repository of your choice
+
+I will create a file with some maps
+- node_modules
+- public      // is public to the browser
+- index html
+- ...
+- src   // here comes the most code
+
+* from inside the new project, you run 'npm start' to kick-start the development server.
+* delete everything in de app.js
+* build a root component : create an index.js in the src folder : this will be the root of the application
+and the file which is used by the webpack build system to travers the hierarchy of components that I'm going to build.
+** import the React library
+
+
+
+
+
+
+NOTES:
+
+* The <div /> syntax is transformed at build time to React.createElement('div').
+
+ return React.createElement('div', {className: 'shopping-list'},
+   React.createElement('h1', /* ... h1 children ... */),
+   React.createElement('ul', /* ... ul children ... */)
+ );
+
+
+
+* The DOM <button> element’s onClick attribute has a special meaning to React because it is a built-in component.
+For custom components like Square, the naming is up to you.
+We could give any name to the Square’s onClick prop or Board’s handleClick method, and the code would work the same.
+In React, it’s conventional to use on[Event] names for props which represent events and handle[Event]
+for the methods which handle the events.
+
+
+===  Picking a Key
+
+- When we render a list, React stores some information about each rendered list item.
+When we update a list, React needs to determine what has changed.
+We could have added, removed, re-arranged, or updated the list’s items.
+
+- When a list is re-rendered, React takes each list item’s key and searches the previous list’s items for a matching key.
+If the current list has a key that didn’t exist before, React creates a component.
+If the current list is missing a key that existed in the previous list, React destroys the previous component.
+If two keys match, the corresponding component is moved. Keys tell React about the identity of each component
+which allows React to maintain state between re-renders.
+If a component’s key changes, the component will be destroyed and re-created with a new state.
+
+- Key is a special and reserved property in React (along with ref, a more advanced feature).
+When an element is created, React extracts the key property and stores the key directly on the returned element.
+Even though key may look like it belongs in props, key cannot be referenced using this.props.key.
+React automatically uses key to decide which components to update.
+A component cannot inquire about its key.
+
+- If no key is specified, React will present a warning and use the array index as a key by default.
+Using the array index as a key is problematic when trying to re-order a list’s items or inserting/removing list items.
+Explicitly passing key={i} silences the warning but has the same problems as
+array indices and is not recommended in most cases.
+
+- Keys do not need to be globally unique; they only need to be unique between components and their siblings
+
+I didn't like the tutorial of the tic-tac-toe gema, so I watched another tutorial: https://www.youtube.com/watch?v=kVeOpcw4GWY
+
+
+
+
+
+
+
+
+
+
