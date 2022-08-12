@@ -6,11 +6,11 @@ import TextFieldComponent from "./TextFieldComponent";
 const QuizComponent = () => {
     return (
         <div>
-            <TextFieldComponent/>
-            <TextFieldComponent/>
-            <TextFieldComponent/>
-            <TextFieldComponent/>
-            <TextFieldComponent/>
+            <QuestionComponent/>
+            <AnswerComponent/>
+            <AnswerComponent/>
+            <AnswerComponent/>
+            <AnswerComponent/>
 
             <button>Sign in</button>
         </div>

@@ -204,6 +204,9 @@ using the function keyword or creating a function with the arrow method:
 
 
 
+
+
+
 === new project
 1.  To start a new React project, the easiest way is to type 'npx create-react-app nameOfProject' in  the terminal,
 in the repository of your choice
@@ -224,9 +227,74 @@ I will create a file with some maps
     - a QuestionComponent
     - a AnswerComponent
     - a ResultComponent
+    - a textFieldComponent
+
+[start=3]
+3. Find out how to fetch :
+https://designcode.io/react-hooks-handbook-fetch-data-from-an-api
+ * Import useEffect
+
+ const App = () => {
+ useEffect(() => {
+  }, []);
+      return <div></div>;
+ };
+export default App;
+
+ * Define your URL
+
+ useEffect(() => {
+ const url = "https://api.adviceslip.com/advice"
+ }, []);
+
+* Create the asynchronous function
+
+ const fetchData = async () => {
+ try {
+ const response = await fetch(url);
+ const json = await response.json();
+ console.log(json);
+ } catch (error) {
+ console.log("error", error);
+ }
+ };
+
+ * put the fetchData function above in the useEffect hook and call it
+useEffect(() => {
+const url = "https://api.adviceslip.com/advice";
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(url);
+        const json = await response.json();
+        console.log(json);
+      } catch (error) {
+        console.log("error", error);
+      }
+    };
+    fetchData();
+}, []);
+
+
+[start=4]
+4. loop through the result-array : https://bobbyhadz.com/blog/react-loop-through-array-of-objects
+
+ return questions.length > 0 ? (
+   <div >
+      {questions.map(question =>{
+         return (
+             <div>
+                  {question.question}
+             </div>
+         )
+      })}
+   </div>
+)
 
 
 
+{sp} +
+{sp} +
 
 
 
