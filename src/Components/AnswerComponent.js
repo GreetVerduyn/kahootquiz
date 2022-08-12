@@ -2,12 +2,13 @@ import React from "react"
 
 
 
-const AnswerComponent = (props) => {
+class AnswerComponent extends React.Component {
 
-
-        return <div>answer</div>
+    render() {
+        return <div>Answer: {this.props.answer}</div>
     }
 
+
+}
+
 export default AnswerComponent;
-
-
