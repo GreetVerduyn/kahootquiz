@@ -100,11 +100,112 @@ Function components are less tedious to write than classes, and many components 
     );
     }
 
+=== Hooks
+
+A opt-in feature that lets you write 90% cleaner code using React hooks.
+By simply importing the hook from the React library, you can manage your component's state
+or other awesome features with only a few lines of code.
+
+==== The 3 basic Hooks
+* *useState*,
+as the name says, is a hook that manages a component's state.
+The useState consists of three parts: the state variable, the function to set the state, and the initial value.
+
+image::Images/image-2022-08-12-10-41-33-776.png[]
+
+
+ const [count, setCount] = useState(0)
+
+
+* *useEffect*
+
+ useEffect(didUpdate);
+
+is a hook that manages the component's lifecycle.
+It replaces the old ComponentDidMount, ComponentDidUpdate and ComponentWillUnmount, all in a few lines of code.
+Mutations, subscriptions, timers, logging, and other side effects are not allowed inside the main body of
+a function component (referred to as React’s render phase). Doing so will lead to confusing bugs and inconsistencies in the UI.
+
+Instead, use useEffect. The function passed to useEffect will run after the render is committed to the screen.
+Think of effects as an escape hatch from React’s purely functional world into the imperative world.
+
+By default, effects run after every completed render, but you can choose to fire them only when certain values have changed.
+Cleaning up an effect
+
+Often, effects create resources that need to be cleaned up before the component leaves the screen, such as a subscription or timer ID.
+To do this, the function passed to useEffect may return a clean-up function. For example, to create a subscription:
+
+
+ useEffect(() => {
+		document.title = `You clicked ${count} times.` // This is the mounting part
+ }, [count]) // Add the count state in the array here (if you need it)
+
+
+
+
+ seEffect(() => {
+  const subscription = props.source.subscribe();
+  return () => {
+    // Clean up the subscription
+    subscription.unsubscribe();
+  };
+});
+
+* *useContext*
+
+Accepts a context object (the value returned from React.createContext) and returns the current context value for that context.
+The current context value is determined by the value prop of the nearest <MyContext.Provider> above
+the calling component in the tree. When the nearest <MyContext.Provider> above the component updates,
+this Hook will trigger a rerender with the latest context value passed to that MyContext provider.
+Even if an ancestor uses React.memo or shouldComponentUpdate,
+a rerender will still happen starting at the component itself using useContext.
+
+!! Don’t forget that the argument to useContext must be the context object itself:
+
+    Correct: useContext(MyContext)
+    Incorrect: useContext(MyContext.Consumer)
+    Incorrect: useContext(MyContext.Provider)
+
+A component calling useContext will always re-render when the context value changes.
+If re-rendering the component is expensive, you can optimize it by using memoization.
+
+
+==== rules of Hooks (2)
+React Hooks have a few set of rules that developers must follow.
+
+* First rule: Only call Hooks at the top level
+
+React Hooks cannot be called inside loops, conditions or nested functions.
+They must be called at the top level of each of your components.
+
+ useEffect(() => {
+ if (name != "") {
+ // Do something
+ }
+ }, [])
+
+
+* Second rule: Only call Hooks from React functions
+
+Hooks cannot be called in a class component, but only in a React function,
+using the function keyword or creating a function with the arrow method:
+
+ // Using function
+ function MyComponent() {
+ const [name, setName] = useState("Mary")
+    // Some other code...
+ }
+
+ // Using the arrow method
+ const MyComponent = () => {
+ const [name, setName] = useState("Mary")
+    // Some other code...
+ }
 
 
 
 === new project
-* To start a new React project, the easiest way is to type 'npx create-react-app nameOfProject' in  the terminal,
+1.  To start a new React project, the easiest way is to type 'npx create-react-app nameOfProject' in  the terminal,
 in the repository of your choice
 
 I will create a file with some maps
@@ -115,10 +216,16 @@ I will create a file with some maps
 - src   // here comes the most code
 
 * from inside the new project, you run 'npm start' to kick-start the development server.
-* delete everything in de app.js
-* build a root component : create an index.js in the src folder : this will be the root of the application
-and the file which is used by the webpack build system to travers the hierarchy of components that I'm going to build.
-** import the React library
+* Delete everything in de app.js, so you can use it as the root of the application
+(the file which is used by the webpack build system to travers the hierarchy of components that I'm going to build).
+
+2. I made the components I need:
+    - a Quiz component (the start page)
+    - a QuestionComponent
+    - a AnswerComponent
+    - a ResultComponent
+
+
 
 
 
